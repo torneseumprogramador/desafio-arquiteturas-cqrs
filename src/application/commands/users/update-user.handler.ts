@@ -22,11 +22,12 @@ export class UpdateUserHandler implements CommandHandler<UpdateUserCommand, User
     }
 
     // Atualizar o usuário
-    const updatedUser = await this.userRepository.update(command.id, {
-      name: command.name,
-      email: command.email,
-      password: command.password,
-    });
+    const updateData: any = {};
+    if (command.name !== undefined) updateData.name = command.name;
+    if (command.email !== undefined) updateData.email = command.email;
+    if (command.password !== undefined) updateData.password = command.password;
+
+    const updatedUser = await this.userRepository.update(command.id, updateData);
 
     return updatedUser;
   }

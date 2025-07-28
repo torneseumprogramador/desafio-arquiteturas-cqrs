@@ -1,7 +1,7 @@
 export interface UpdateProductCommand {
   id: string;
-  name?: string;
-  description?: string;
-  price?: number;
-  stock?: number;
+  name?: string | undefined;
+  description?: string | undefined;
+  price?: number | undefined;
+  stock?: number | undefined;
 } 

@@ -28,6 +28,16 @@ export class ProductController {
         return;
       }
 
+      if (price < 0) {
+        res.status(400).json({ error: 'Preço não pode ser negativo' });
+        return;
+      }
+
+      if (stock < 0) {
+        res.status(400).json({ error: 'Estoque não pode ser negativo' });
+        return;
+      }
+
       const command: CreateProductCommand = {
         name,
         description,
@@ -52,7 +62,8 @@ export class ProductController {
       if (error instanceof Error) {
         res.status(400).json({ error: error.message });
       } else {
-              res.status(500).json({ error: 'Erro interno do servidor' });
+        res.status(500).json({ error: 'Erro interno do servidor' });
+      }
     }
   }
 
@@ -134,7 +145,6 @@ export class ProductController {
       }
     }
   }
-}
 
   async getProduct(req: Request, res: Response): Promise<void> {
     try {

@@ -24,12 +24,13 @@ export class UpdateProductHandler implements CommandHandler<UpdateProductCommand
     }
 
     // Atualizar o produto
-    const updatedProduct = await this.productRepository.update(command.id, {
-      name: command.name,
-      description: command.description,
-      price: command.price,
-      stock: command.stock,
-    });
+    const updateData: any = {};
+    if (command.name !== undefined) updateData.name = command.name;
+    if (command.description !== undefined) updateData.description = command.description;
+    if (command.price !== undefined) updateData.price = command.price;
+    if (command.stock !== undefined) updateData.stock = command.stock;
+
+    const updatedProduct = await this.productRepository.update(command.id, updateData);
 
     return updatedProduct;
   }
