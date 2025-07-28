@@ -35,10 +35,10 @@ check_node() {
         exit 1
     fi
     
-    # Verifica se é Node.js 16 ou superior
+    # Verifica se é Node.js 18 ou superior
     NODE_VERSION=$(node --version | cut -d'v' -f2 | cut -d'.' -f1)
-    if [ "$NODE_VERSION" -lt 16 ]; then
-        echo -e "${RED}❌ Node.js 16+ é necessário. Versão atual: $NODE_VERSION${NC}"
+    if [ "$NODE_VERSION" -lt 18 ]; then
+        echo -e "${RED}❌ Node.js 18+ é necessário. Versão atual: $NODE_VERSION${NC}"
         exit 1
     fi
     
@@ -207,7 +207,8 @@ case "${1:-}" in
         echo -e "${BLUE}🗄️ Executando migrações...${NC}"
         check_node
         check_npm
-        npm run migrate
+        npx drizzle-kit generate:pg
+        npx drizzle-kit up:pg
         ;;
     "studio")
         echo -e "${BLUE}📊 Abrindo Drizzle Studio...${NC}"
@@ -247,8 +248,8 @@ case "${1:-}" in
         
         # Executar migrações
         echo -e "${YELLOW}🗄️ Executando migrações...${NC}"
-        npm run generate
-        npm run migrate
+        npx drizzle-kit generate:pg
+        npx drizzle-kit up:pg
         
         echo -e "${GREEN}✅ Migrações concluídas!${NC}"
         
