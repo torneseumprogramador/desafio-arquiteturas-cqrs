@@ -7,6 +7,12 @@ export function createUserRoutes(userController: UserController): Router {
   // POST /users - Criar usuário
   router.post('/', (req, res) => userController.createUser(req, res));
 
+  // PUT /users/:id - Atualizar usuário
+  router.put('/:id', (req, res) => userController.updateUser(req, res));
+
+  // DELETE /users/:id - Deletar usuário
+  router.delete('/:id', (req, res) => userController.deleteUser(req, res));
+
   // GET /users/:id - Buscar usuário por ID
   router.get('/:id', (req, res) => userController.getUser(req, res));
 
