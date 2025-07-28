@@ -21,6 +21,8 @@ show_help() {
     echo -e "  ${GREEN}./run.sh dev${NC}                - Executa em modo desenvolvimento"
     echo -e "  ${GREEN}./run.sh migrate${NC}            - Executa migrações do banco"
     echo -e "  ${GREEN}./run.sh studio${NC}             - Abre Drizzle Studio"
+    echo -e "  ${GREEN}./run.sh pgadmin${NC}            - Mostra informações do pgAdmin"
+    echo -e "  ${GREEN}./run.sh setup-pgadmin${NC}      - Configura pgAdmin com instruções"
     echo -e "  ${GREEN}./run.sh help${NC}               - Mostra esta ajuda"
     echo ""
     echo -e "${YELLOW}💡 Exemplos:${NC}"
@@ -207,14 +209,28 @@ case "${1:-}" in
         echo -e "${BLUE}🗄️ Executando migrações...${NC}"
         check_node
         check_npm
-        npx drizzle-kit generate:pg
-        npx drizzle-kit up:pg
+        npx drizzle-kit generate
+        npx drizzle-kit up
         ;;
     "studio")
         echo -e "${BLUE}📊 Abrindo Drizzle Studio...${NC}"
         check_node
         check_npm
-        npm run studio
+        npx drizzle-kit studio
+        ;;
+    "pgadmin")
+        echo -e "${BLUE}📊 Abrindo pgAdmin...${NC}"
+        echo -e "${GREEN}🌐 Acesse: http://localhost:8081${NC}"
+        echo -e "${BLUE}👤 Login: admin@admin.com${NC}"
+        echo -e "${BLUE}🔑 Senha: admin${NC}"
+        echo -e "${YELLOW}📊 Servidor PostgreSQL: postgres:5432${NC}"
+        echo -e "${YELLOW}📊 Database: cqrs_db${NC}"
+        echo -e "${YELLOW}👤 Usuário: postgres${NC}"
+        echo -e "${YELLOW}🔑 Senha: postgres${NC}"
+        ;;
+    "setup-pgadmin")
+        echo -e "${BLUE}🔧 Configurando pgAdmin...${NC}"
+        ./setup-pgadmin.sh
         ;;
     "help"|"-h"|"--help")
         show_help
@@ -248,8 +264,8 @@ case "${1:-}" in
         
         # Executar migrações
         echo -e "${YELLOW}🗄️ Executando migrações...${NC}"
-        npx drizzle-kit generate:pg
-        npx drizzle-kit up:pg
+        npx drizzle-kit generate
+        npx drizzle-kit up
         
         echo -e "${GREEN}✅ Migrações concluídas!${NC}"
         

@@ -8,6 +8,6 @@ export default defineConfig({
   out: './src/infrastructure/database/migrations',
   dialect: 'postgresql',
   dbCredentials: {
-    url: process.env.DATABASE_URL || 'postgresql://username:password@localhost:5432/cqrs_db',
+    url: process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/cqrs_db',
   },
 }); 
