@@ -42,8 +42,7 @@ export class HomeController {
         'CQRS Architecture',
       ],
       documentation: {
-        swagger: '/swagger-ui.html',
-        openapi: '/v3/api-docs',
+        swagger: '/api-docs',
       },
     });
   }

@@ -38,6 +38,7 @@ import { createUserRoutes } from './presentation/routes/user.routes';
 import { createProductRoutes } from './presentation/routes/product.routes';
 import { createOrderRoutes } from './presentation/routes/order.routes';
 import { createHealthRoutes } from './presentation/routes/health.routes';
+import { setupSwagger } from './infrastructure/config/swagger.config';
 
 // Configuração de variáveis de ambiente
 dotenv.config();
@@ -99,6 +100,9 @@ const orderController = new OrderController(
 const homeController = new HomeController();
 const healthController = new HealthController();
 
+// Configuração do Swagger
+setupSwagger(app);
+
 // Rotas
 app.use('/api/users', createUserRoutes(userController));
 app.use('/api/products', createProductRoutes(productController));
@@ -125,4 +129,5 @@ app.listen(PORT, () => {
   console.log(`👥 Usuários: http://localhost:${PORT}/api/users`);
   console.log(`📦 Produtos: http://localhost:${PORT}/api/products`);
   console.log(`🛒 Pedidos: http://localhost:${PORT}/api/orders`);
+  console.log(`📚 Swagger UI: http://localhost:${PORT}/api-docs`);
 }); 

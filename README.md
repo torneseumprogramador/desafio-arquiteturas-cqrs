@@ -101,6 +101,7 @@ src/
 - **UUID** - Identificação única de entidades
 - **Helmet** - Middleware de segurança
 - **CORS** - Cross-Origin Resource Sharing
+- **Swagger UI** - Documentação interativa da API
 - **Arquitetura CQRS** - Padrão arquitetural
 
 ## 📋 Pré-requisitos
@@ -174,13 +175,41 @@ npm run migrate      # Executa migrações
 npm run studio       # Abre o Drizzle Studio
 ```
 
+### Scripts do run.sh
+
+```bash
+./run.sh             # Execução completa (Docker + Build + Start)
+./run.sh build       # Apenas build do projeto
+./run.sh dev         # Modo desenvolvimento
+./run.sh migrate     # Executa migrações
+./run.sh studio      # Abre Drizzle Studio
+./run.sh check-db    # Verifica dados no banco
+./run.sh test-health # Testa endpoints de health
+./run.sh test-swagger # Testa Swagger UI
+./run.sh help        # Mostra ajuda completa
+```
+
 ## 🌐 Acessando a API
 
 Após executar o projeto, a API estará disponível em:
 
 - **API Base**: http://localhost:3000
 - **Health Check**: http://localhost:3000/health
-- **Drizzle Studio**: http://localhost:4983 (se executado)
+- **Swagger UI**: http://localhost:3000/api-docs
+- **Drizzle Studio**: https://local.drizzle.studio
+
+### 📚 Documentação da API
+
+A documentação completa da API está disponível através do **Swagger UI**:
+
+🌐 **Swagger UI**: http://localhost:3000/api-docs
+
+O Swagger UI oferece:
+- ✅ Documentação interativa de todos os endpoints
+- ✅ Exemplos de requisições e respostas
+- ✅ Teste direto dos endpoints
+- ✅ Esquemas de dados detalhados
+- ✅ Códigos de status HTTP
 
 ## 🔧 Configuração do Banco de Dados
 
@@ -216,6 +245,8 @@ docker run --name postgres-cqrs \
 
 ## 📖 Endpoints da API
 
+> 📚 **Documentação Completa**: Acesse [Swagger UI](http://localhost:3000/api-docs) para documentação interativa completa.
+
 ### 👥 Usuários (User)
 
 | Método | Endpoint | Descrição |
@@ -223,6 +254,8 @@ docker run --name postgres-cqrs \
 | POST | `/api/users` | Criar usuário |
 | GET | `/api/users` | Listar todos os usuários |
 | GET | `/api/users/:id` | Buscar usuário por ID |
+| PUT | `/api/users/:id` | Atualizar usuário |
+| DELETE | `/api/users/:id` | Deletar usuário |
 
 **Exemplo de criação de usuário:**
 ```bash
@@ -255,6 +288,8 @@ curl -X POST "http://localhost:3000/api/users" \
 | POST | `/api/products` | Criar produto |
 | GET | `/api/products` | Listar todos os produtos |
 | GET | `/api/products/:id` | Buscar produto por ID |
+| PUT | `/api/products/:id` | Atualizar produto |
+| DELETE | `/api/products/:id` | Deletar produto |
 
 **Exemplo de criação de produto:**
 ```bash
@@ -283,11 +318,22 @@ curl -X POST "http://localhost:3000/api/products" \
 }
 ```
 
+### 🛒 Pedidos (Order)
+
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| POST | `/api/orders` | Criar pedido |
+| GET | `/api/orders` | Listar todos os pedidos |
+| GET | `/api/orders/:id` | Buscar pedido por ID |
+
 ### 🏥 Health Check
 
 | Método | Endpoint | Descrição |
 |--------|----------|-----------|
 | GET | `/health` | Status geral da aplicação |
+| GET | `/health/ping` | Teste simples de conectividade |
+| GET | `/health/database` | Status detalhado do banco de dados |
+| GET | `/health/detailed` | Health check detalhado com todos os componentes |
 
 **Exemplo:**
 ```bash

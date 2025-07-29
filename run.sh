@@ -23,6 +23,7 @@ show_help() {
     echo -e "  ${GREEN}./run.sh studio${NC}             - Abre Drizzle Studio"
     echo -e "  ${GREEN}./run.sh check-db${NC}           - Verifica dados no banco"
     echo -e "  ${GREEN}./run.sh test-health${NC}        - Testa endpoints de health"
+    echo -e "  ${GREEN}./run.sh test-swagger${NC}       - Testa Swagger UI"
     echo -e "  ${GREEN}./run.sh help${NC}               - Mostra esta ajuda"
     echo ""
     echo -e "${YELLOW}💡 Exemplos:${NC}"
@@ -231,6 +232,10 @@ case "${1:-}" in
     "test-health")
         echo -e "${BLUE}🏥 Testando endpoints de health...${NC}"
         ./test-health.sh
+        ;;
+    "test-swagger")
+        echo -e "${BLUE}📚 Testando Swagger UI...${NC}"
+        ./test-swagger.sh
         ;;
     "help"|"-h"|"--help")
         show_help
