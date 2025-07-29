@@ -14,7 +14,7 @@ export class GetAllUsersHandler implements QueryHandler<GetAllUsersQuery, Pagina
     const offset = (page - 1) * limit;
 
     const { data, total } = await this.userRepository.findAllWithPagination({
-      name: query.name,
+      ...(query.name && { name: query.name }),
       limit,
       offset,
     });

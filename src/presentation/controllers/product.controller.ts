@@ -184,9 +184,9 @@ export class ProductController {
       const { name, page, limit } = req.query;
       
       const query: GetAllProductsQuery = {
-        name: name ? (name as string) : undefined,
-        page: page ? parseInt(page as string) : undefined,
-        limit: limit ? parseInt(limit as string) : undefined,
+        ...(name && { name: name as string }),
+        ...(page && { page: parseInt(page as string) }),
+        ...(limit && { limit: parseInt(limit as string) }),
       };
 
       const result = await this.getAllProductsHandler.execute(query);

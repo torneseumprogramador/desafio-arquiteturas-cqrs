@@ -14,7 +14,7 @@ export class GetAllProductsHandler implements QueryHandler<GetAllProductsQuery, 
     const offset = (page - 1) * limit;
 
     const { data, total } = await this.productRepository.findAllWithPagination({
-      name: query.name,
+      ...(query.name && { name: query.name }),
       limit,
       offset,
     });
