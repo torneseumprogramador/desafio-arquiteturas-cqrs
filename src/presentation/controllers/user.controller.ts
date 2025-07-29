@@ -163,17 +163,25 @@ export class UserController {
 
   async getAllUsers(req: Request, res: Response): Promise<void> {
     try {
-      const query: GetAllUsersQuery = {};
-      const users = await this.getAllUsersHandler.execute(query);
+      const { name, page, limit } = req.query;
+      
+      const query: GetAllUsersQuery = {
+        name: name ? (name as string) : undefined,
+        page: page ? parseInt(page as string) : undefined,
+        limit: limit ? parseInt(limit as string) : undefined,
+      };
+
+      const result = await this.getAllUsersHandler.execute(query);
 
       res.status(200).json({
-        users: users.map(user => ({
+        data: result.data.map(user => ({
           id: user.id,
           name: user.name,
           email: user.email,
           createdAt: user.createdAt,
           updatedAt: user.updatedAt,
         })),
+        pagination: result.pagination,
       });
     } catch (error) {
       res.status(500).json({ error: 'Erro interno do servidor' });

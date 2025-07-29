@@ -240,22 +240,58 @@ export const swaggerConfig = {
       get: {
         tags: ['Users'],
         summary: 'Listar Usuários',
-        description: 'Retorna todos os usuários cadastrados',
+        description: 'Retorna todos os usuários cadastrados com filtros e paginação',
+        parameters: [
+          {
+            name: 'name',
+            in: 'query',
+            description: 'Filtrar por nome (busca parcial)',
+            schema: { type: 'string' },
+          },
+          {
+            name: 'page',
+            in: 'query',
+            description: 'Número da página (padrão: 1)',
+            schema: { type: 'integer', default: 1 },
+          },
+          {
+            name: 'limit',
+            in: 'query',
+            description: 'Quantidade de itens por página (padrão: 10)',
+            schema: { type: 'integer', default: 10 },
+          },
+        ],
         responses: {
           '200': {
-            description: 'Lista de usuários',
+            description: 'Lista de usuários com paginação',
             content: {
               'application/json': {
                 schema: {
-                  type: 'array',
-                  items: {
-                    type: 'object',
-                    properties: {
-                      id: { type: 'string' },
-                      name: { type: 'string' },
-                      email: { type: 'string' },
-                      createdAt: { type: 'string' },
-                      updatedAt: { type: 'string' },
+                  type: 'object',
+                  properties: {
+                    data: {
+                      type: 'array',
+                      items: {
+                        type: 'object',
+                        properties: {
+                          id: { type: 'string' },
+                          name: { type: 'string' },
+                          email: { type: 'string' },
+                          createdAt: { type: 'string' },
+                          updatedAt: { type: 'string' },
+                        },
+                      },
+                    },
+                    pagination: {
+                      type: 'object',
+                      properties: {
+                        page: { type: 'integer' },
+                        limit: { type: 'integer' },
+                        total: { type: 'integer' },
+                        totalPages: { type: 'integer' },
+                        hasNext: { type: 'boolean' },
+                        hasPrev: { type: 'boolean' },
+                      },
                     },
                   },
                 },
@@ -426,24 +462,60 @@ export const swaggerConfig = {
       get: {
         tags: ['Products'],
         summary: 'Listar Produtos',
-        description: 'Retorna todos os produtos cadastrados',
+        description: 'Retorna todos os produtos cadastrados com filtros e paginação',
+        parameters: [
+          {
+            name: 'name',
+            in: 'query',
+            description: 'Filtrar por nome (busca parcial)',
+            schema: { type: 'string' },
+          },
+          {
+            name: 'page',
+            in: 'query',
+            description: 'Número da página (padrão: 1)',
+            schema: { type: 'integer', default: 1 },
+          },
+          {
+            name: 'limit',
+            in: 'query',
+            description: 'Quantidade de itens por página (padrão: 10)',
+            schema: { type: 'integer', default: 10 },
+          },
+        ],
         responses: {
           '200': {
-            description: 'Lista de produtos',
+            description: 'Lista de produtos com paginação',
             content: {
               'application/json': {
                 schema: {
-                  type: 'array',
-                  items: {
-                    type: 'object',
-                    properties: {
-                      id: { type: 'string' },
-                      name: { type: 'string' },
-                      description: { type: 'string' },
-                      price: { type: 'number' },
-                      stock: { type: 'number' },
-                      createdAt: { type: 'string' },
-                      updatedAt: { type: 'string' },
+                  type: 'object',
+                  properties: {
+                    data: {
+                      type: 'array',
+                      items: {
+                        type: 'object',
+                        properties: {
+                          id: { type: 'string' },
+                          name: { type: 'string' },
+                          description: { type: 'string' },
+                          price: { type: 'number' },
+                          stock: { type: 'number' },
+                          createdAt: { type: 'string' },
+                          updatedAt: { type: 'string' },
+                        },
+                      },
+                    },
+                    pagination: {
+                      type: 'object',
+                      properties: {
+                        page: { type: 'integer' },
+                        limit: { type: 'integer' },
+                        total: { type: 'integer' },
+                        totalPages: { type: 'integer' },
+                        hasNext: { type: 'boolean' },
+                        hasPrev: { type: 'boolean' },
+                      },
                     },
                   },
                 },

@@ -181,11 +181,18 @@ export class ProductController {
 
   async getAllProducts(req: Request, res: Response): Promise<void> {
     try {
-      const query: GetAllProductsQuery = {};
-      const products = await this.getAllProductsHandler.execute(query);
+      const { name, page, limit } = req.query;
+      
+      const query: GetAllProductsQuery = {
+        name: name ? (name as string) : undefined,
+        page: page ? parseInt(page as string) : undefined,
+        limit: limit ? parseInt(limit as string) : undefined,
+      };
+
+      const result = await this.getAllProductsHandler.execute(query);
 
       res.status(200).json({
-        products: products.map(product => ({
+        data: result.data.map(product => ({
           id: product.id,
           name: product.name,
           description: product.description,
@@ -194,6 +201,7 @@ export class ProductController {
           createdAt: product.createdAt,
           updatedAt: product.updatedAt,
         })),
+        pagination: result.pagination,
       });
     } catch (error) {
       res.status(500).json({ error: 'Erro interno do servidor' });

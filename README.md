@@ -186,6 +186,7 @@ npm run studio       # Abre o Drizzle Studio
 ./run.sh check-db    # Verifica dados no banco
 ./run.sh test-health # Testa endpoints de health
 ./run.sh test-swagger # Testa Swagger UI
+./run.sh test-pagination # Testa paginação e filtros
 ./run.sh help        # Mostra ajuda completa
 ```
 
@@ -325,6 +326,42 @@ curl -X POST "http://localhost:3000/api/products" \
 | POST | `/api/orders` | Criar pedido |
 | GET | `/api/orders` | Listar todos os pedidos |
 | GET | `/api/orders/:id` | Buscar pedido por ID |
+
+### 📄 Paginação e Filtros
+
+Os endpoints de listagem (`GET /api/users` e `GET /api/products`) suportam paginação e filtros:
+
+**Parâmetros de Query:**
+- `page` - Número da página (padrão: 1)
+- `limit` - Itens por página (padrão: 10)
+- `name` - Filtro por nome (busca parcial)
+
+**Exemplos:**
+```bash
+# Paginação básica
+GET /api/users?page=1&limit=5
+
+# Filtro por nome
+GET /api/users?name=João
+
+# Combinação de filtro e paginação
+GET /api/products?name=iPhone&page=1&limit=3
+```
+
+**Resposta com Paginação:**
+```json
+{
+  "data": [...],
+  "pagination": {
+    "page": 1,
+    "limit": 10,
+    "total": 25,
+    "totalPages": 3,
+    "hasNext": true,
+    "hasPrev": false
+  }
+}
+```
 
 ### 🏥 Health Check
 

@@ -24,6 +24,7 @@ show_help() {
     echo -e "  ${GREEN}./run.sh check-db${NC}           - Verifica dados no banco"
     echo -e "  ${GREEN}./run.sh test-health${NC}        - Testa endpoints de health"
     echo -e "  ${GREEN}./run.sh test-swagger${NC}       - Testa Swagger UI"
+    echo -e "  ${GREEN}./run.sh test-pagination${NC}    - Testa paginação e filtros"
     echo -e "  ${GREEN}./run.sh help${NC}               - Mostra esta ajuda"
     echo ""
     echo -e "${YELLOW}💡 Exemplos:${NC}"
@@ -236,6 +237,10 @@ case "${1:-}" in
     "test-swagger")
         echo -e "${BLUE}📚 Testando Swagger UI...${NC}"
         ./test-swagger.sh
+        ;;
+    "test-pagination")
+        echo -e "${BLUE}📄 Testando paginação e filtros...${NC}"
+        ./test-pagination.sh
         ;;
     "help"|"-h"|"--help")
         show_help
