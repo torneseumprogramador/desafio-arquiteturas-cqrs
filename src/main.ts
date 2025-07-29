@@ -33,9 +33,11 @@ import { UserController } from './presentation/controllers/user.controller';
 import { ProductController } from './presentation/controllers/product.controller';
 import { OrderController } from './presentation/controllers/order.controller';
 import { HomeController } from './presentation/controllers/home.controller';
+import { HealthController } from './presentation/controllers/health.controller';
 import { createUserRoutes } from './presentation/routes/user.routes';
 import { createProductRoutes } from './presentation/routes/product.routes';
 import { createOrderRoutes } from './presentation/routes/order.routes';
+import { createHealthRoutes } from './presentation/routes/health.routes';
 
 // Configuração de variáveis de ambiente
 dotenv.config();
@@ -95,23 +97,16 @@ const orderController = new OrderController(
 );
 
 const homeController = new HomeController();
+const healthController = new HealthController();
 
 // Rotas
 app.use('/api/users', createUserRoutes(userController));
 app.use('/api/products', createProductRoutes(productController));
 app.use('/api/orders', createOrderRoutes(orderController));
+app.use('/health', createHealthRoutes(healthController));
 
 // Rota home
 app.get('/', (req, res) => homeController.getHome(req, res));
-
-// Rota de health check
-app.get('/health', (req, res) => {
-  res.status(200).json({ 
-    status: 'OK', 
-    message: 'Aplicação CQRS funcionando corretamente',
-    timestamp: new Date().toISOString()
-  });
-});
 
 // Middleware de tratamento de erros
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -123,6 +118,9 @@ app.use((err: Error, req: express.Request, res: express.Response, next: express.
 app.listen(PORT, () => {
   console.log(`🚀 Servidor rodando na porta ${PORT}`);
   console.log(`📊 Health check: http://localhost:${PORT}/health`);
+  console.log(`🏥 Health ping: http://localhost:${PORT}/health/ping`);
+  console.log(`🗄️ Health database: http://localhost:${PORT}/health/database`);
+  console.log(`📋 Health detailed: http://localhost:${PORT}/health/detailed`);
   console.log(`🏠 Home: http://localhost:${PORT}/`);
   console.log(`👥 Usuários: http://localhost:${PORT}/api/users`);
   console.log(`📦 Produtos: http://localhost:${PORT}/api/products`);

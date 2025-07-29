@@ -21,8 +21,8 @@ show_help() {
     echo -e "  ${GREEN}./run.sh dev${NC}                - Executa em modo desenvolvimento"
     echo -e "  ${GREEN}./run.sh migrate${NC}            - Executa migrações do banco"
     echo -e "  ${GREEN}./run.sh studio${NC}             - Abre Drizzle Studio"
-    echo -e "  ${GREEN}./run.sh pgadmin${NC}            - Mostra informações do pgAdmin"
-    echo -e "  ${GREEN}./run.sh setup-pgadmin${NC}      - Configura pgAdmin com instruções"
+    echo -e "  ${GREEN}./run.sh check-db${NC}           - Verifica dados no banco"
+    echo -e "  ${GREEN}./run.sh test-health${NC}        - Testa endpoints de health"
     echo -e "  ${GREEN}./run.sh help${NC}               - Mostra esta ajuda"
     echo ""
     echo -e "${YELLOW}💡 Exemplos:${NC}"
@@ -218,19 +218,19 @@ case "${1:-}" in
         check_npm
         npx drizzle-kit studio
         ;;
-    "pgadmin")
-        echo -e "${BLUE}📊 Abrindo pgAdmin...${NC}"
-        echo -e "${GREEN}🌐 Acesse: http://localhost:8081${NC}"
-        echo -e "${BLUE}👤 Login: admin@admin.com${NC}"
-        echo -e "${BLUE}🔑 Senha: admin${NC}"
-        echo -e "${YELLOW}📊 Servidor PostgreSQL: postgres:5432${NC}"
-        echo -e "${YELLOW}📊 Database: cqrs_db${NC}"
-        echo -e "${YELLOW}👤 Usuário: postgres${NC}"
-        echo -e "${YELLOW}🔑 Senha: postgres${NC}"
+    "studio")
+        echo -e "${BLUE}📊 Abrindo Drizzle Studio...${NC}"
+        echo -e "${GREEN}🌐 Acesse: https://local.drizzle.studio${NC}"
+        echo -e "${YELLOW}📊 Database: PostgreSQL${NC}"
+        echo -e "${YELLOW}📊 URL: postgresql://postgres:postgres@localhost:5432/cqrs_db${NC}"
         ;;
-    "setup-pgadmin")
-        echo -e "${BLUE}🔧 Configurando pgAdmin...${NC}"
-        ./setup-pgadmin.sh
+    "check-db")
+        echo -e "${BLUE}📊 Verificando dados no banco...${NC}"
+        ./check-db.sh
+        ;;
+    "test-health")
+        echo -e "${BLUE}🏥 Testando endpoints de health...${NC}"
+        ./test-health.sh
         ;;
     "help"|"-h"|"--help")
         show_help

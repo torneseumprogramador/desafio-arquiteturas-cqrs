@@ -27,7 +27,10 @@ export class HomeController {
           'GET /api/orders/:id': 'Buscar pedido por ID',
         },
         health: {
-          'GET /health': 'Status da aplicação',
+          'GET /health': 'Health check geral da aplicação',
+          'GET /health/ping': 'Teste simples de conectividade',
+          'GET /health/database': 'Status detalhado do banco de dados',
+          'GET /health/detailed': 'Health check detalhado com todos os componentes',
         },
       },
       technologies: [
