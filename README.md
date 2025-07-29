@@ -334,15 +334,22 @@ Os endpoints de listagem (`GET /api/users` e `GET /api/products`) suportam pagin
 **Parâmetros de Query:**
 - `page` - Número da página (padrão: 1)
 - `limit` - Itens por página (padrão: 10)
-- `name` - Filtro por nome (busca parcial)
+- `name` - Filtro por nome (busca parcial, case-insensitive, suporte a acentos)
 
 **Exemplos:**
 ```bash
 # Paginação básica
 GET /api/users?page=1&limit=5
 
-# Filtro por nome
-GET /api/users?name=João
+# Filtro por nome (case-insensitive)
+GET /api/users?name=joão
+GET /api/users?name=joao
+GET /api/users?name=JOÃO
+
+# Filtro por nome (suporte a acentos)
+GET /api/users?name=pedro
+GET /api/products?name=iphone
+GET /api/products?name=macbook
 
 # Combinação de filtro e paginação
 GET /api/products?name=iPhone&page=1&limit=3

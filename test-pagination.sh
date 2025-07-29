@@ -89,8 +89,18 @@ RESPONSE=$(curl -s "http://localhost:3000/api/users?page=2&limit=2")
 echo "Status: $(echo "$RESPONSE" | grep -o '"page":[0-9]*' | head -1)"
 echo "Total: $(echo "$RESPONSE" | grep -o '"total":[0-9]*' | head -1)"
 
-echo -e "${BLUE}🔍 Filtro por nome 'João':${NC}"
+echo -e "${BLUE}🔍 Filtro por nome 'João' (com acento):${NC}"
 RESPONSE=$(curl -s "http://localhost:3000/api/users?name=João")
+echo "Encontrados: $(echo "$RESPONSE" | grep -o '"total":[0-9]*' | head -1)"
+echo "Primeiro resultado: $(echo "$RESPONSE" | grep -o '"name":"[^"]*"' | head -1)"
+
+echo -e "${BLUE}🔍 Filtro por nome 'joao' (sem acento):${NC}"
+RESPONSE=$(curl -s "http://localhost:3000/api/users?name=joao")
+echo "Encontrados: $(echo "$RESPONSE" | grep -o '"total":[0-9]*' | head -1)"
+echo "Primeiro resultado: $(echo "$RESPONSE" | grep -o '"name":"[^"]*"' | head -1)"
+
+echo -e "${BLUE}🔍 Filtro por nome 'pedro' (minúsculo):${NC}"
+RESPONSE=$(curl -s "http://localhost:3000/api/users?name=pedro")
 echo "Encontrados: $(echo "$RESPONSE" | grep -o '"total":[0-9]*' | head -1)"
 echo "Primeiro resultado: $(echo "$RESPONSE" | grep -o '"name":"[^"]*"' | head -1)"
 
@@ -112,13 +122,18 @@ RESPONSE=$(curl -s "http://localhost:3000/api/products?page=2&limit=2")
 echo "Status: $(echo "$RESPONSE" | grep -o '"page":[0-9]*' | head -1)"
 echo "Total: $(echo "$RESPONSE" | grep -o '"total":[0-9]*' | head -1)"
 
-echo -e "${BLUE}🔍 Filtro por nome 'iPhone':${NC}"
+echo -e "${BLUE}🔍 Filtro por nome 'iPhone' (original):${NC}"
 RESPONSE=$(curl -s "http://localhost:3000/api/products?name=iPhone")
 echo "Encontrados: $(echo "$RESPONSE" | grep -o '"total":[0-9]*' | head -1)"
 echo "Primeiro resultado: $(echo "$RESPONSE" | grep -o '"name":"[^"]*"' | head -1)"
 
-echo -e "${BLUE}🔍 Filtro por nome 'MacBook':${NC}"
-RESPONSE=$(curl -s "http://localhost:3000/api/products?name=MacBook")
+echo -e "${BLUE}🔍 Filtro por nome 'iphone' (minúsculo):${NC}"
+RESPONSE=$(curl -s "http://localhost:3000/api/products?name=iphone")
+echo "Encontrados: $(echo "$RESPONSE" | grep -o '"total":[0-9]*' | head -1)"
+echo "Primeiro resultado: $(echo "$RESPONSE" | grep -o '"name":"[^"]*"' | head -1)"
+
+echo -e "${BLUE}🔍 Filtro por nome 'macbook' (minúsculo):${NC}"
+RESPONSE=$(curl -s "http://localhost:3000/api/products?name=macbook")
 echo "Encontrados: $(echo "$RESPONSE" | grep -o '"total":[0-9]*' | head -1)"
 echo "Primeiro resultado: $(echo "$RESPONSE" | grep -o '"name":"[^"]*"' | head -1)"
 

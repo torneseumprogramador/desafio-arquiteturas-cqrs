@@ -1,4 +1,4 @@
-import { eq, like, count } from 'drizzle-orm';
+import { eq, like, count, sql } from 'drizzle-orm';
 import { db } from '../connection';
 import { users } from '../models/user.model';
 import { UserRepository } from '../../../domain/users/user.repository';
@@ -112,7 +112,9 @@ export class DrizzleUserRepository implements UserRepository {
     // Query para contar total
     let totalResult;
     if (name) {
-      totalResult = await db.select({ count: count() }).from(users).where(like(users.name, `%${name}%`));
+      totalResult = await db.select({ count: count() }).from(users).where(
+        sql`unaccent(${users.name}) ILIKE unaccent(${'%' + name + '%'})`
+      );
     } else {
       totalResult = await db.select({ count: count() }).from(users);
     }
@@ -121,7 +123,9 @@ export class DrizzleUserRepository implements UserRepository {
     // Query para buscar dados com paginação
     let data;
     if (name) {
-      data = await db.select().from(users).where(like(users.name, `%${name}%`)).limit(limit).offset(offset);
+      data = await db.select().from(users).where(
+        sql`unaccent(${users.name}) ILIKE unaccent(${'%' + name + '%'})`
+      ).limit(limit).offset(offset);
     } else {
       data = await db.select().from(users).limit(limit).offset(offset);
     }

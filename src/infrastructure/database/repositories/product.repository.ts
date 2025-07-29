@@ -1,4 +1,4 @@
-import { eq, like, count } from 'drizzle-orm';
+import { eq, like, count, sql } from 'drizzle-orm';
 import { db } from '../connection';
 import { products } from '../models/product.model';
 import { ProductRepository } from '../../../domain/products/product.repository';
@@ -100,7 +100,9 @@ export class DrizzleProductRepository implements ProductRepository {
     // Query para contar total
     let totalResult;
     if (name) {
-      totalResult = await db.select({ count: count() }).from(products).where(like(products.name, `%${name}%`));
+      totalResult = await db.select({ count: count() }).from(products).where(
+        sql`unaccent(${products.name}) ILIKE unaccent(${'%' + name + '%'})`
+      );
     } else {
       totalResult = await db.select({ count: count() }).from(products);
     }
@@ -109,7 +111,9 @@ export class DrizzleProductRepository implements ProductRepository {
     // Query para buscar dados com paginação
     let data;
     if (name) {
-      data = await db.select().from(products).where(like(products.name, `%${name}%`)).limit(limit).offset(offset);
+      data = await db.select().from(products).where(
+        sql`unaccent(${products.name}) ILIKE unaccent(${'%' + name + '%'})`
+      ).limit(limit).offset(offset);
     } else {
       data = await db.select().from(products).limit(limit).offset(offset);
     }
