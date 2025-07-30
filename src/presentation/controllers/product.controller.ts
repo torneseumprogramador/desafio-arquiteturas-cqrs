@@ -22,18 +22,23 @@ export class ProductController {
   async createProduct(req: Request, res: Response): Promise<void> {
     try {
       const { name, description, price, stock } = req.body;
+      
+      console.log(`[CREATE_PRODUCT] Tentativa de criar produto: ${name}`);
 
       if (!name || !description || price === undefined || stock === undefined) {
+        console.log(`[CREATE_PRODUCT] Campos obrigatórios faltando: name=${!!name}, description=${!!description}, price=${price}, stock=${stock}`);
         res.status(400).json({ error: 'Nome, descrição, preço e estoque são obrigatórios' });
         return;
       }
 
       if (price < 0) {
+        console.log(`[CREATE_PRODUCT] Preço negativo: ${price}`);
         res.status(400).json({ error: 'Preço não pode ser negativo' });
         return;
       }
 
       if (stock < 0) {
+        console.log(`[CREATE_PRODUCT] Estoque negativo: ${stock}`);
         res.status(400).json({ error: 'Estoque não pode ser negativo' });
         return;
       }
@@ -45,8 +50,10 @@ export class ProductController {
         stock: Number(stock),
       };
 
+      console.log(`[CREATE_PRODUCT] Executando comando para produto: ${name}`);
       const product = await this.createProductHandler.execute(command);
 
+      console.log(`[CREATE_PRODUCT] Produto criado com sucesso: ${product.id}`);
       res.status(201).json({
         message: 'Produto criado com sucesso',
         product: {
@@ -59,6 +66,7 @@ export class ProductController {
         },
       });
     } catch (error) {
+      console.error(`[CREATE_PRODUCT] Erro ao criar produto:`, error);
       if (error instanceof Error) {
         res.status(400).json({ error: error.message });
       } else {

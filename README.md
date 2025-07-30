@@ -91,6 +91,20 @@ src/
 └── main.ts                          # Ponto de entrada da aplicação
 ```
 
+### 📁 Scripts e Utilitários
+
+```
+scripts/
+└── interactive-api.sh               # Script interativo para teste da API
+
+# Scripts principais
+run.sh                              # Script principal de execução
+test-health.sh                      # Teste de health check
+test-swagger.sh                     # Teste da documentação Swagger
+test-pagination.sh                  # Teste de paginação e filtros
+check-db.sh                         # Verificação do banco de dados
+```
+
 ## 🚀 Tecnologias Utilizadas
 
 - **Node.js 18+** - Runtime JavaScript
@@ -188,6 +202,63 @@ npm run studio       # Abre o Drizzle Studio
 ./run.sh test-swagger # Testa Swagger UI
 ./run.sh test-pagination # Testa paginação e filtros
 ./run.sh help        # Mostra ajuda completa
+```
+
+### 🎮 Script Interativo da API
+
+Para uma experiência interativa completa de teste da API, use o script:
+
+```bash
+./scripts/interactive-api.sh
+```
+
+**Funcionalidades do Script Interativo:**
+
+- 🎯 **Menu Colorido e Intuitivo** - Interface amigável com cores e emojis
+- 👥 **Gestão Completa de Usuários** - Criar, listar, atualizar e deletar
+- 📦 **Gestão Completa de Produtos** - Criar, listar, atualizar e deletar
+- 🛒 **Gestão Completa de Pedidos** - Criar, visualizar, atualizar e deletar
+- 💚 **Verificação de Saúde da API** - Health checks detalhados
+- 📚 **Acesso à Documentação Swagger** - Abre automaticamente no navegador
+- ✅ **Validações Inteligentes** - Verificações de entrada e dados
+- 🔄 **Tratamento de Erros** - Mensagens claras e sugestões
+- 🎨 **Interface Visual Atraente** - Cores, emojis e formatação
+
+**Como Usar:**
+```bash
+# Certifique-se que a API está rodando
+./run.sh
+
+# Em outro terminal, execute o script interativo
+./scripts/interactive-api.sh
+```
+
+**Exemplo de Uso:**
+```
+╔══════════════════════════════════════════════════════════════╗
+║              🛒 SISTEMA E-COMMERCE HEXAGONAL                 ║
+║                Arquitetura Hexagonal (Ports & Adapters)      ║
+╚══════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────┐
+│                        MENU PRINCIPAL                        │
+├──────────────────────────────────────────────────────────────┤
+│  1. 👥 Listar usuários cadastrados                           │
+│  2. 👤 Cadastrar novo usuário                                │
+│  3. ✏️  Atualizar usuário                                    │
+│  4. 🗑️  Deletar usuário                                      │
+│  5. 📦 Listar produtos disponíveis                           │
+│  6. 🆕 Cadastrar novo produto                                │
+│  7. ✏️  Atualizar produto                                    │
+│  8. 🗑️  Deletar produto                                      │
+│  9. 🛒 Criar novo pedido                                     │
+│ 10. 📊 Visualizar pedidos existentes                         │
+│ 11. ✏️  Atualizar pedido                                     │
+│ 12. 🗑️  Deletar pedido                                       │
+│ 13. 💚 Verificar saúde da API                                │
+│ 14. 📚 Abrir documentação Swagger                            │
+│  0. 🚪 Sair                                                  │
+└──────────────────────────────────────────────────────────────┘
 ```
 
 ## 🌐 Acessando a API
@@ -425,7 +496,26 @@ curl http://localhost:3000/health
 
 ## 🧪 Exemplos de Uso
 
-### Fluxo Completo de Criação
+### 🎮 Fluxo Interativo (Recomendado)
+
+Para uma experiência completa e interativa:
+
+```bash
+# 1. Iniciar a aplicação
+./run.sh
+
+# 2. Em outro terminal, executar o script interativo
+./scripts/interactive-api.sh
+
+# 3. Seguir o menu interativo para:
+#    - Cadastrar usuários e produtos
+#    - Criar pedidos com seleção de produtos
+#    - Visualizar dados formatados
+#    - Verificar saúde da API
+#    - Acessar documentação Swagger
+```
+
+### 📋 Fluxo Manual (curl)
 
 ```bash
 # 1. Criar usuário
@@ -503,6 +593,10 @@ const getAllProducts = async () => {
 - ✅ **Express** com middlewares de segurança
 - ✅ **Health check** para monitoramento
 - ✅ **Estrutura modular** e escalável
+- ✅ **Script interativo** para teste completo da API
+- ✅ **Interface amigável** com menu colorido e validações
+- ✅ **Gestão completa de pedidos** com seleção de produtos
+- ✅ **Documentação Swagger** integrada e acessível
 
 ## 🎓 Aprendizados do Curso
 
@@ -550,9 +644,28 @@ O Drizzle ORM irá criar automaticamente as seguintes tabelas:
 - `orders` - Pedidos realizados
 - `order_products` - Itens de cada pedido
 
-## Testando a API
+## 🧪 Testando a API
 
-Você pode usar o curl ou qualquer cliente HTTP como Postman:
+### 🎮 Método Interativo (Recomendado)
+
+Para uma experiência completa e interativa de teste da API, use o script:
+
+```bash
+./scripts/interactive-api.sh
+```
+
+**Vantagens do Script Interativo:**
+- 🎯 Interface amigável com menu colorido
+- ✅ Validações automáticas de entrada
+- 🔄 Tratamento inteligente de erros
+- 📊 Visualização formatada dos dados
+- 🛒 Criação de pedidos com seleção de produtos
+- 💚 Verificação de saúde da API
+- 📚 Acesso direto à documentação Swagger
+
+### 📋 Método Manual (curl/Postman)
+
+Você também pode usar o curl ou qualquer cliente HTTP como Postman:
 
 1. **Criar um usuário:**
 ```bash
@@ -584,6 +697,35 @@ curl http://localhost:3000/api/products
 # Execute o comando para abrir o Drizzle Studio
 npm run studio
 ```
+
+### 🧪 Scripts de Teste Disponíveis
+
+O projeto inclui vários scripts para testar diferentes funcionalidades:
+
+```bash
+# Teste interativo completo da API
+./scripts/interactive-api.sh
+
+# Teste de health check da API
+./test-health.sh
+
+# Teste da documentação Swagger
+./test-swagger.sh
+
+# Teste de paginação e filtros
+./test-pagination.sh
+
+# Verificação do banco de dados
+./check-db.sh
+```
+
+**Descrição dos Scripts:**
+
+- **`interactive-api.sh`** - Script interativo completo com menu colorido
+- **`test-health.sh`** - Testa todos os endpoints de health check
+- **`test-swagger.sh`** - Verifica se a documentação Swagger está acessível
+- **`test-pagination.sh`** - Testa funcionalidades de paginação e filtros
+- **`check-db.sh`** - Verifica dados no banco de dados
 
 ## 👨‍🏫 Sobre o Professor
 

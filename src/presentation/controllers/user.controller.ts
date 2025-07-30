@@ -22,8 +22,11 @@ export class UserController {
   async createUser(req: Request, res: Response): Promise<void> {
     try {
       const { name, email, password } = req.body;
+      
+      console.log(`[CREATE_USER] Tentativa de criar usuário: ${email}`);
 
       if (!name || !email || !password) {
+        console.log(`[CREATE_USER] Campos obrigatórios faltando: name=${!!name}, email=${!!email}, password=${!!password}`);
         res.status(400).json({ error: 'Nome, email e senha são obrigatórios' });
         return;
       }
@@ -34,8 +37,10 @@ export class UserController {
         password,
       };
 
+      console.log(`[CREATE_USER] Executando comando para usuário: ${email}`);
       const user = await this.createUserHandler.execute(command);
 
+      console.log(`[CREATE_USER] Usuário criado com sucesso: ${user.id}`);
       res.status(201).json({
         message: 'Usuário criado com sucesso',
         user: {
@@ -46,6 +51,7 @@ export class UserController {
         },
       });
     } catch (error) {
+      console.error(`[CREATE_USER] Erro ao criar usuário:`, error);
       if (error instanceof Error) {
         res.status(400).json({ error: error.message });
       } else {
